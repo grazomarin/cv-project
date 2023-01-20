@@ -1,0 +1,26 @@
+{
+  "extends": ["react-app", "react-app/jest"],
+  "rules": {
+    "indent": [1, 2],
+    "semi": [1, 1],
+    "linebreak-style": [0, "unix"],
+    "no-use-before-define": [
+      1,
+      {
+        "functions": false
+      }
+    ],
+    "no-unused-expressions": [
+      0,
+      {
+        "allowTernary": true
+      }
+    ],
+    "max-len": [
+      2,
+      {
+        "code": 80
+      }
+    ]
+  }
+}
