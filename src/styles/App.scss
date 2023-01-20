@@ -1,0 +1,7 @@
+@use "./modules/index" as *;
+
+.cv {
+  width: $cv-width;
+  height: $cv-height;
+  background-color: $cv-bg-color;
+}
