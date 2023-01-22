@@ -1,8 +1,8 @@
 @mixin sliderInput($color) {
 	height: 31px;
 	-webkit-appearance: none;
-	margin: 10px 0;
 	width: 100%;
+	background-color: $color;
 
 	&:focus {
 		outline: none;

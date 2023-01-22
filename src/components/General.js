@@ -11,25 +11,44 @@ export default class General extends Component {
 		return (
 			<div className="general">
 				<img src={placeholder} alt="" className="profilePic" />
-				<div className="general-details">
+				<div>
 					<div className="category">Contact</div>
-					<div>
-						<img src={home} alt="" className="icon" />
-						<span>Somewhere</span>
-					</div>
-					<div>
-						<img src={phone} alt="" className="icon" />
-						<span>+21 --- --- -- --</span>
-					</div>
-					<div>
-						<img src={mail} alt="" className="icon" />
-						<span>dontEmailMe@gmail.com</span>
-					</div>
-					<div>
-						<img src={site} alt="" className="icon" />
-						<a href="https://github.com/grazomarin" target="_blank">
-							https://github.com/grazomarin
-						</a>
+					<div className="general-details">
+						<div className="detail">
+							<img src={home} alt="" className="icon" />
+							<div className="title">
+								<span>Home Address:</span>
+							</div>
+							<div className="content">Somewhere</div>
+						</div>
+						<div className="detail">
+							<img src={phone} alt="" className="icon" />
+							<div className="title">
+								<span>Phone Number:</span>
+							</div>
+							<div className="content">+21 --- --- -- --</div>
+						</div>
+						<div className="detail">
+							<img src={mail} alt="" className="icon" />
+							<div className="title">
+								<span>Email:</span>
+							</div>
+							<div className="content">dontEmailMe@gmail.com</div>
+						</div>
+						<div className="detail">
+							<img src={site} alt="" className="icon" />
+							<div className="title">
+								<span>Site:</span>
+							</div>
+							<div className="content">
+								<a
+									href="https://github.com/grazomarin"
+									target="_blank"
+								>
+									https://github.com/grazomarin
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div className="skills">
@@ -40,27 +59,38 @@ export default class General extends Component {
 						<li>Sass</li>
 						<li>JavaScript</li>
 						<li>React</li>
+						<li>React</li>
+						<li>React</li>
+						<li>React</li>
+						<li>React</li>
+						<li>React</li>
+						<li>React</li>
+						<li>React</li>
+						<li>React</li>
+						<li>React</li>
 					</ul>
 				</div>
-				<div className="languages">
+				<div>
 					<div className="category">Languages</div>
-					<div className="languages-language">
-						<div className="title">
-							<span>English</span> <span>B1</span>
+					<div className="languages">
+						<div className="languages-language">
+							<div className="title">
+								<span>English</span> <span>B1</span>
+							</div>
+							<input type="range" min="1" max="6" value="3" />
 						</div>
-						<input type="range" min="1" max="6" value="3" />
-					</div>
-					<div className="languages-language">
-						<div className="title">
-							<span>French</span> <span>B1</span>
+						<div className="languages-language">
+							<div className="title">
+								<span>French</span> <span>B1</span>
+							</div>
+							<input type="range" min="1" max="6" value="3" />
 						</div>
-						<input type="range" min="1" max="6" value="3" />
-					</div>
-					<div className="languages-language">
-						<div className="title">
-							<span>Azerbaijani</span> <span>B1</span>
+						<div className="languages-language">
+							<div className="title">
+								<span>Azerbaijani</span> <span>B1</span>
+							</div>
+							<input type="range" min="1" max="6" value="3" />
 						</div>
-						<input type="range" min="1" max="6" value="3" />
 					</div>
 				</div>
 			</div>
