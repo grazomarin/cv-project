@@ -1,6 +1,12 @@
-@use "./modules/index" as *;
+@use './modules/index' as *;
+
+body {
+	background-color: $bg-color;
+}
 
 #root {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
+	font-family: $font;
+	margin: $root-margin auto;
 }

@@ -1,88 +1,69 @@
-import React, { Component } from "react";
-import "../styles/General.scss";
+import React, { Component } from 'react';
+import '../styles/General.scss';
+import placeholder from '../images/placeholder.jpg';
+import home from '../images/home.svg';
+import mail from '../images/mail.svg';
+import phone from '../images/phone.svg';
+import site from '../images/site.svg';
 
 export default class General extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      edit: true,
-      buttonText: "submit",
-      general: [...this.props.general],
-    };
-  }
-
-  toggleEditMode = () => {
-    if (this.state.edit === true) {
-      this.setState({
-        edit: false,
-        buttonText: "edit",
-      });
-    } else {
-      this.setState({
-        edit: true,
-        buttonText: "submit",
-      });
-    }
-  };
-
-  onInputChange = (id, e) => {
-    this.setState({
-      general: this.state.general.map((obj) => {
-        if (`${obj.id}` === `${id}`) obj.value = e.target.value;
-        return obj;
-      }),
-    });
-  };
-
-  renderEdit = () => {
-    return (
-      <form action="" className="general">
-        {this.state.general.map((obj) => {
-          return (
-            <div key={obj.key}>
-              <label htmlFor={obj.name}>{obj.display}: </label>
-              <input
-                id={obj.name}
-                type={obj.type}
-                value={obj.value}
-                onChange={(e) => this.onInputChange(obj.id, e)}
-              />
-            </div>
-          );
-        })}
-      </form>
-    );
-  };
-
-  renderRead = () => {
-    return (
-      <div className="general">
-        {this.state.general.map((obj) => {
-          return (
-            <div key={obj.id}>
-              {obj.display}: {obj.value}
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  render() {
-    let content;
-    if (this.state.edit) {
-      content = this.renderEdit();
-    } else {
-      content = this.renderRead();
-    }
-
-    return (
-      <div className="cont">
-        {content}
-        <button className="toggle" onClick={this.toggleEditMode}>
-          {this.state.buttonText}
-        </button>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div className="general">
+				<img src={placeholder} alt="" className="profilePic" />
+				<div className="general-details">
+					<div className="category">Contact</div>
+					<div>
+						<img src={home} alt="" className="icon" />
+						<span>Somewhere</span>
+					</div>
+					<div>
+						<img src={phone} alt="" className="icon" />
+						<span>+21 --- --- -- --</span>
+					</div>
+					<div>
+						<img src={mail} alt="" className="icon" />
+						<span>dontEmailMe@gmail.com</span>
+					</div>
+					<div>
+						<img src={site} alt="" className="icon" />
+						<a href="https://github.com/grazomarin" target="_blank">
+							https://github.com/grazomarin
+						</a>
+					</div>
+				</div>
+				<div className="skills">
+					<div className="category">Skills</div>
+					<ul>
+						<li>HTML</li>
+						<li>CSS</li>
+						<li>Sass</li>
+						<li>JavaScript</li>
+						<li>React</li>
+					</ul>
+				</div>
+				<div className="languages">
+					<div className="category">Languages</div>
+					<div className="languages-language">
+						<div className="title">
+							<span>English</span> <span>B1</span>
+						</div>
+						<input type="range" min="1" max="6" value="3" />
+					</div>
+					<div className="languages-language">
+						<div className="title">
+							<span>French</span> <span>B1</span>
+						</div>
+						<input type="range" min="1" max="6" value="3" />
+					</div>
+					<div className="languages-language">
+						<div className="title">
+							<span>Azerbaijani</span> <span>B1</span>
+						</div>
+						<input type="range" min="1" max="6" value="3" />
+					</div>
+				</div>
+			</div>
+		);
+	}
 }

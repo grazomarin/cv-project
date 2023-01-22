@@ -1,7 +1,23 @@
-@use "./modules/index" as *;
+@use './modules/index' as *;
 
 .cv {
-  width: $cv-width;
-  height: $cv-height;
-  background-color: $cv-bg-color;
+	width: $cv-width;
+	height: $cv-height;
+	background-color: $white;
+	display: grid;
+	grid-template-columns: 1fr calc($cv-width/2.8);
+	grid-template-rows: 0.5fr 1fr 1fr 1fr;
+	grid-template-areas:
+		'title general'
+		'profile general'
+		'education general'
+		'experience general';
+
+	.title {
+		grid-area: title;
+	}
+
+	.general {
+		grid-area: general;
+	}
 }
