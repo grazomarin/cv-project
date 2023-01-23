@@ -5,11 +5,12 @@
 	height: $cv-height;
 	background-color: $white;
 	display: grid;
+	row-gap: 20px;
 	grid-template-columns: 1fr calc($cv-width/2.8);
-	grid-template-rows: 0.5fr 1fr 1fr 1fr;
+	grid-template-rows: 150px 1fr 1fr 1fr;
 	grid-template-areas:
 		'title general'
-		'profile general'
+		'about general'
 		'education general'
 		'experience general';
 
@@ -20,4 +21,28 @@
 	.general {
 		grid-area: general;
 	}
+
+	.about {
+		grid-area: about;
+	}
+
+	.education {
+		grid-area: education;
+	}
+
+	.experience {
+		grid-area: experience;
+	}
+}
+
+.category {
+	width: calc($cv-width / 3.8);
+	justify-content: center;
+	@include category($blue, $white);
+}
+
+.category2 {
+	width: 100%;
+	padding: 0 20px;
+	@include category($white, $blue);
 }

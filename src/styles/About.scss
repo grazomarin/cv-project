@@ -1,0 +1,14 @@
+@use './modules/index' as *;
+
+.about {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	margin: 0 20px;
+
+	&_about {
+		background-color: $light-blue;
+		border-radius: 5px;
+		height: auto;
+		padding: 0 20px;
+	}
+}

@@ -5,8 +5,8 @@ export default class Title extends Component {
 	render() {
 		return (
 			<div className="title">
-				<div>My Name</div>
-				<div>My Title</div>
+				<div className="title_name">Joe Shmo</div>
+				<div className="title_title">Front-End React developer</div>
 			</div>
 		);
 	}
