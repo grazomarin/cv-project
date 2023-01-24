@@ -1,0 +1,24 @@
+@use './modules/index' as *;
+
+.education {
+	&-education {
+		.major {
+			font-size: 1.5rem;
+			font-weight: 500;
+		}
+
+		.university {
+			color: $grey;
+		}
+
+		ul {
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+
+			li::marker {
+				font-size: 1.5rem;
+			}
+		}
+	}
+}

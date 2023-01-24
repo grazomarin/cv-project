@@ -1,8 +1,6 @@
 @use './modules/index' as *;
 
 .title {
-	margin: 20px 20px 0 20px;
-
 	&_name {
 		color: $blue;
 		font-size: 3rem;
@@ -13,11 +11,5 @@
 
 	&_title {
 		font-size: 1.8rem;
-	}
-
-	&:hover {
-		border-radius: 5px;
-		outline: 2px solid black;
-		outline-offset: 10px;
 	}
 }

@@ -1,0 +1,25 @@
+@use './modules/index' as *;
+
+.experience {
+	&-details {
+		li::marker {
+			font-size: 1.4rem;
+		}
+
+		.job {
+			&-about {
+				margin-bottom: 10px;
+				font-size: 1.1rem;
+			}
+
+			&-description {
+				ul {
+					padding: 0 20px;
+					li::marker {
+						font-size: 1rem;
+					}
+				}
+			}
+		}
+	}
+}

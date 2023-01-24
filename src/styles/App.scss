@@ -7,32 +7,34 @@
 	display: grid;
 	row-gap: 20px;
 	grid-template-columns: 1fr calc($cv-width/2.8);
-	grid-template-rows: 150px 1fr 1fr 1fr;
-	grid-template-areas:
-		'title general'
-		'about general'
-		'education general'
-		'experience general';
+	grid-template-rows: 1fr;
+	grid-template-areas: 'left right';
 
-	.title {
-		grid-area: title;
+	.left {
+		grid-area: left;
 	}
 
-	.general {
-		grid-area: general;
+	.right {
+		background-color: $blue;
+		grid-area: right;
 	}
 
-	.about {
-		grid-area: about;
+	.left,
+	.right {
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+		padding: 30px;
 	}
+}
 
-	.education {
-		grid-area: education;
-	}
+.text_title {
+	font-weight: 600;
+}
 
-	.experience {
-		grid-area: experience;
-	}
+.text_title2 {
+	font-size: 1.4rem;
+	font-weight: 600;
 }
 
 .category {
@@ -45,4 +47,29 @@
 	width: 100%;
 	padding: 0 20px;
 	@include category($white, $blue);
+}
+
+.details,
+.skills,
+.languages,
+.title,
+.about,
+.education,
+.experience,
+.avatar {
+	&:hover {
+		border-radius: 5px;
+		outline: 3px solid black;
+		outline-offset: 10px;
+
+		.toggle {
+			display: block;
+		}
+	}
+}
+
+.avatar {
+	&:hover {
+		border-radius: 50%;
+	}
 }

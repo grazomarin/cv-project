@@ -14,15 +14,6 @@ export default class About extends Component {
 						cum minus architecto totam, consequuntur tempore
 						laudantium sint. Dolorem porro ea necessitatibus
 						incidunt rem commodi quod voluptatem saepe architecto
-						maxime ab sit error accusantium debitis quo, qui et
-						culpa, nulla illum odit facere provident quas. Voluptate
-						aliquam non consequatur tempore facere reprehenderit
-						iste repudiandae commodi, temporibus alias, esse
-						nesciunt vel ipsam numquam? Provident accusamus, sint
-						fugit animi quidem cum qui est delectus suscipit
-						molestiae exercitationem unde voluptatem tenetur
-						mollitia! Dolorum praesentium quia dolor? Sapiente rerum
-						sunt quo totam?
 					</p>
 				</div>
 			</div>

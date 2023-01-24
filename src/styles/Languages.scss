@@ -1,0 +1,28 @@
+@use './modules/index' as *;
+
+.languages {
+	width: 100%;
+
+	&-cont {
+		display: grid;
+		grid-auto-rows: 1fr;
+		gap: 10px;
+
+		.language {
+			display: flex;
+			flex-flow: column;
+			align-items: center;
+			gap: 5px;
+
+			&_title {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+			}
+
+			input[type='range'] {
+				@include sliderInput($blue);
+			}
+		}
+	}
+}
