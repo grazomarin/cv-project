@@ -33,7 +33,7 @@
 }
 
 .text_title2 {
-	font-size: 1.4rem;
+	font-size: 1.5rem;
 	font-weight: 600;
 }
 
@@ -49,6 +49,14 @@
 	@include category($white, $blue);
 }
 
+.edit {
+	display: none;
+	position: absolute;
+	width: 30px;
+	bottom: 0;
+	right: 0;
+}
+
 .details,
 .skills,
 .languages,
@@ -57,12 +65,14 @@
 .education,
 .experience,
 .avatar {
+	position: relative;
+
 	&:hover {
 		border-radius: 5px;
 		outline: 3px solid black;
 		outline-offset: 10px;
 
-		.toggle {
+		.edit {
 			display: block;
 		}
 	}

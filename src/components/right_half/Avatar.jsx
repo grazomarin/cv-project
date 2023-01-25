@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import placeholder from '../images/placeholder.jpg';
-import '../styles/Avatar.scss';
+import placeholder from '../../images/placeholder.jpg';
+import '../../styles/Avatar.scss';
 
 export default class Avatar extends Component {
 	render() {

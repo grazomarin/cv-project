@@ -3,21 +3,19 @@
 .experience {
 	&-details {
 		li::marker {
-			font-size: 1.4rem;
+			font-size: 1.5rem;
 		}
 
 		.job {
 			&-about {
 				margin-bottom: 10px;
-				font-size: 1.1rem;
+				font-size: 1.2rem;
 			}
 
 			&-description {
-				ul {
-					padding: 0 20px;
-					li::marker {
-						font-size: 1rem;
-					}
+				.text_title {
+					font-size: 1.1rem;
+					margin-bottom: 5px;
 				}
 			}
 		}
