@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
-import editIcon from '../../images/edit.svg';
 import '../../styles/Skills.scss';
 import uniqid from 'uniqid';
-import SkillItem from './SkillItem';
+import EditButton from '../EditButton';
+
+class SkillItem extends Component {
+	state = {
+		name: this.props.item.name,
+		id: this.props.item.id,
+	};
+
+	render() {
+		return <li>{this.state.name}</li>;
+	}
+}
 
 export default class Skills extends Component {
 	state = {
@@ -17,7 +27,7 @@ export default class Skills extends Component {
 						return <SkillItem item={item} key={item.id} />;
 					})}
 				</ul>
-				<img src={editIcon} alt="" className="edit" />
+				<EditButton active={this.state.active} />
 			</div>
 		);
 	}

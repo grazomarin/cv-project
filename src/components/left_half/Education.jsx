@@ -1,8 +1,36 @@
 import React, { Component } from 'react';
-import EducationItem from './EducationItem';
 import '../../styles/Education.scss';
-import editIcon from '../../images/edit.svg';
 import uniqid from 'uniqid';
+import EditButton from '../EditButton';
+
+class EducationItem extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			degree: this.props.item.degree,
+			university: this.props.item.university,
+			date: {
+				from: this.props.item.date.from,
+				to: this.props.item.date.to,
+			},
+		};
+	}
+
+	render() {
+		let { degree, university, date } = this.state;
+		return (
+			<li>
+				<div className="text_title2">{degree}</div>
+				<div className="university">
+					<span>
+						{date.from}-{date.to}
+					</span>{' '}
+					<span>{university}</span>
+				</div>
+			</li>
+		);
+	}
+}
 
 export default class Education extends Component {
 	state = {
@@ -17,7 +45,9 @@ export default class Education extends Component {
 				id: uniqid(),
 			},
 		],
+		active: false,
 	};
+
 	render() {
 		return (
 			<div className="education">
@@ -29,7 +59,7 @@ export default class Education extends Component {
 						})}
 					</ul>
 				</div>
-				<img src={editIcon} alt="" className="edit" />
+				<EditButton active={this.state.active} />
 			</div>
 		);
 	}

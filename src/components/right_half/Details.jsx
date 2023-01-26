@@ -3,8 +3,9 @@ import homeIcon from '../../images/home.svg';
 import mailIcon from '../../images/mail.svg';
 import phoneIcon from '../../images/phone.svg';
 import siteIcon from '../../images/site.svg';
-import editIcon from '../../images/edit.svg';
+
 import '../../styles/Details.scss';
+import EditButton from '../EditButton';
 
 export default class Details extends Component {
 	state = {
@@ -53,7 +54,7 @@ export default class Details extends Component {
 						</div>
 					</div>
 				</div>
-				<img src={editIcon} alt="" className="edit" />
+				<EditButton active={this.state.active} />
 			</div>
 		);
 	}
