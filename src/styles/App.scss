@@ -67,12 +67,19 @@
 	}
 }
 
-.edit {
+.edit,
+.add {
 	display: none;
-	position: absolute;
-	width: 30px;
-	bottom: 0;
-	right: 0;
+	width: 25px;
+	cursor: pointer;
+}
+
+.actionCont {
+	display: none;
+}
+
+.actionContMini {
+	display: none;
 }
 
 .details,
@@ -88,11 +95,19 @@
 	&:hover {
 		border-radius: 5px;
 		outline: 3px solid black;
-		outline-offset: 10px;
+		outline-offset: 15px;
 
-		.edit {
-			display: block;
-			cursor: pointer;
+		.actionCont {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			display: flex;
+			gap: 5px;
+		}
+
+		.edit,
+		.add {
+			display: inline;
 		}
 	}
 }

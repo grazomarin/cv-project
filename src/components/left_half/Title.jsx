@@ -97,10 +97,9 @@ export default class Title extends Component {
 				<div className="title_title">
 					{this.state.defined.title || this.placeholder.title}
 				</div>
-				<EditButton
-					active={this.state.active}
-					toggleEdit={this.toggleEdit}
-				/>
+				<div className="actionCont">
+					<EditButton toggleEdit={this.toggleEdit} />
+				</div>
 			</>
 		);
 	};

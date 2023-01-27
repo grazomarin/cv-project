@@ -49,10 +49,9 @@ export default class About extends Component {
 				<div className="about_about">
 					<p>{this.state.text || this.placeholder}</p>
 				</div>
-				<EditButton
-					active={this.state.active}
-					toggleEdit={this.toggleEdit}
-				/>
+				<div className="actionCont">
+					<EditButton toggleEdit={this.toggleEdit} />
+				</div>
 			</>
 		);
 	};

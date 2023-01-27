@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/Experience.scss';
 import uniqid from 'uniqid';
 import EditButton from '../EditButton';
+import AddButton from '../AddButton';
 
 class ExperienceItem extends Component {
 	state = {
@@ -61,7 +62,10 @@ class Experience extends Component {
 						})}
 					</ul>
 				</div>
-				<EditButton active={this.state.active} />
+				<div className="actionCont">
+					<AddButton />
+					<EditButton active={this.state.active} />
+				</div>
 			</div>
 		);
 	}

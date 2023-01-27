@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/Skills.scss';
 import uniqid from 'uniqid';
 import EditButton from '../EditButton';
+import AddButton from '../AddButton';
 
 class SkillItem extends Component {
 	state = {
@@ -27,7 +28,10 @@ export default class Skills extends Component {
 						return <SkillItem item={item} key={item.id} />;
 					})}
 				</ul>
-				<EditButton active={this.state.active} />
+				<div className="actionCont">
+					<AddButton />
+					<EditButton active={this.state.active} />
+				</div>
 			</div>
 		);
 	}

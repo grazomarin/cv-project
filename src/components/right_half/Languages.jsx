@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/Languages.scss';
 import uniqid from 'uniqid';
 import EditButton from '../EditButton';
+import AddButton from '../AddButton';
 
 class LanguageItem extends Component {
 	state = {
@@ -64,7 +65,10 @@ export default class Languages extends Component {
 						return <LanguageItem item={item} key={item.id} />;
 					})}
 				</div>
-				<EditButton active={this.state.active} />
+				<div className="actionCont">
+					<AddButton />
+					<EditButton active={this.state.active} />
+				</div>
 			</div>
 		);
 	}

@@ -54,7 +54,9 @@ export default class Details extends Component {
 						</div>
 					</div>
 				</div>
-				<EditButton active={this.state.active} />
+				<div className="actionCont">
+					<EditButton active={this.state.active} />
+				</div>
 			</div>
 		);
 	}
