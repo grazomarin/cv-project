@@ -8,7 +8,7 @@ export default class EditButton extends Component {
 				src={editIcon}
 				alt=""
 				className="edit"
-				onClick={this.props.fn}
+				onClick={this.props.toggleEdit}
 			/>
 		);
 	}

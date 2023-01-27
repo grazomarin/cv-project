@@ -6,19 +6,29 @@ import EditForm from '../EditForm';
 export default class About extends Component {
 	constructor(props) {
 		super(props);
+		this.placeholder = '--About Text--';
 		this.state = {
-			text: '--About Text--',
+			text: '',
 			active: false,
 		};
 	}
 
-	toggleEdit = () => {
+	handleSubmit = (e) => {
+		e.preventDefault();
+		this.setState({
+			text: e.target.about.value,
+		});
+		this.toggleEdit();
+	};
+
+	toggleEdit = (e) => {
+		e?.preventDefault();
 		this.setState({ active: !this.state.active });
 	};
 
 	renderEdit = () => {
 		return (
-			<EditForm>
+			<EditForm cancel={this.toggleEdit} submit={this.handleSubmit}>
 				<div className="about_about--edit">
 					<textarea
 						name="about"
@@ -26,6 +36,7 @@ export default class About extends Component {
 						rows="5"
 						// eslint-disable-next-line max-len
 						placeholder="Write something interesting about yourself...."
+						defaultValue={this.state.text}
 					></textarea>
 				</div>
 			</EditForm>
@@ -36,9 +47,12 @@ export default class About extends Component {
 		return (
 			<>
 				<div className="about_about">
-					<p>{this.state.text}</p>
+					<p>{this.state.text || this.placeholder}</p>
 				</div>
-				<EditButton active={this.state.active} fn={this.toggleEdit} />
+				<EditButton
+					active={this.state.active}
+					toggleEdit={this.toggleEdit}
+				/>
 			</>
 		);
 	};

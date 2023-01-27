@@ -1,15 +1,41 @@
 @use './modules/index' as *;
 
 .title {
+	&--edit {
+		display: flex;
+		flex-flow: column;
+		gap: 10px;
+	}
+
 	&_name {
-		color: $blue;
-		font-size: 3rem;
 		text-shadow: 1.5px 1.5px 0px rgb(0, 0, 0);
 		margin-bottom: 10px;
-		font-weight: 600;
+
+		&,
+		&--edit {
+			color: $blue;
+			font-size: 3rem;
+			font-weight: 600;
+			&::placeholder {
+				color: $blue;
+			}
+		}
+
+		&--edit {
+			width: 100%;
+			height: 100%;
+		}
 	}
 
 	&_title {
-		font-size: 1.8rem;
+		&,
+		&--edit {
+			font-size: 1.8rem;
+		}
+
+		&--edit {
+			width: 100%;
+			height: 100%;
+		}
 	}
 }

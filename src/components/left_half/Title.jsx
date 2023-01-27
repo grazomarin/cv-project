@@ -6,32 +6,82 @@ import EditForm from '../EditForm';
 export default class Title extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
+		this.placeholder = {
 			name: '--Name--',
 			title: '--Title--',
+		};
+		this.state = {
+			pending: {
+				name: '',
+				title: '',
+			},
+			defined: {
+				name: '',
+				title: '',
+			},
 			active: false,
 		};
 	}
 
-	toggleEdit = () => {
+	handleSubmit = (e) => {
+		e.preventDefault();
+		this.setState({
+			defined: {
+				name: this.state.pending.name,
+				title: this.state.pending.title,
+			},
+		});
+		this.toggleEdit();
+	};
+
+	toggleEdit = (e) => {
+		e?.preventDefault();
+		this.preventChange();
 		this.setState({ active: !this.state.active });
+	};
+
+	preventChange = () => {
+		this.setState({
+			pending: {
+				name: this.state.defined.name,
+				title: this.state.defined.title,
+			},
+		});
 	};
 
 	renderEdit = () => {
 		return (
-			<EditForm>
+			<EditForm cancel={this.toggleEdit} submit={this.handleSubmit}>
 				<div className="title--edit">
 					<input
 						className="title_name--edit"
 						name="name"
 						type="text"
 						placeholder="Name"
+						value={this.state.pending.name}
+						onChange={(e) => {
+							this.setState({
+								pending: {
+									name: e.target.value,
+									title: this.state.pending.title,
+								},
+							});
+						}}
 					/>
 					<input
 						className="title_title--edit"
 						name="title"
 						type="text"
 						placeholder="Title"
+						value={this.state.pending.title}
+						onChange={(e) => {
+							this.setState({
+								pending: {
+									name: this.state.pending.name,
+									title: e.target.value,
+								},
+							});
+						}}
 					/>
 				</div>
 			</EditForm>
@@ -41,9 +91,16 @@ export default class Title extends Component {
 	renderDisplay = () => {
 		return (
 			<>
-				<div className="title_name">{this.state.name}</div>
-				<div className="title_title">{this.state.title}</div>
-				<EditButton active={this.state.active} fn={this.toggleEdit} />
+				<div className="title_name">
+					{this.state.defined.name || this.placeholder.name}
+				</div>
+				<div className="title_title">
+					{this.state.defined.title || this.placeholder.title}
+				</div>
+				<EditButton
+					active={this.state.active}
+					toggleEdit={this.toggleEdit}
+				/>
 			</>
 		);
 	};
@@ -51,9 +108,7 @@ export default class Title extends Component {
 	render() {
 		return (
 			<div className="title">
-				{/* eslint-disable-next-line max-len */}
-				{/* {this.state.active ? this.renderEdit() : this.renderDisplay()} */}
-				{this.renderDisplay()}
+				{this.state.active ? this.renderEdit() : this.renderDisplay()}
 			</div>
 		);
 	}
