@@ -39,13 +39,13 @@ class Experience extends Component {
 	state = {
 		experience: [
 			{
-				jobTitle: '--Job Title--',
-				company: '--Company--',
+				jobTitle: 'Job Title',
+				company: 'Company',
 				date: {
 					from: 'from',
 					to: 'to',
 				},
-				descritption: '--description--',
+				descritption: 'description',
 				id: uniqid(),
 			},
 		],

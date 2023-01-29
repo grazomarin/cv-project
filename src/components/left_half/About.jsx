@@ -6,7 +6,7 @@ import EditForm from '../EditForm';
 export default class About extends Component {
 	constructor(props) {
 		super(props);
-		this.placeholder = '--About Text--';
+		this.placeholder = 'About Text';
 		this.state = {
 			text: '',
 			active: false,

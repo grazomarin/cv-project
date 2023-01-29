@@ -99,14 +99,24 @@
 
 		.actionCont {
 			position: absolute;
-			bottom: 0;
-			right: 0;
+			bottom: -5px;
+			right: -5px;
 			display: flex;
 			gap: 5px;
-		}
 
+			.edit,
+			.add {
+				display: inline;
+			}
+		}
+	}
+}
+
+li {
+	&:hover {
 		.edit,
 		.add {
+			height: 23px;
 			display: inline;
 		}
 	}

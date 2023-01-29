@@ -1,100 +1,218 @@
 import React, { Component } from 'react';
 import '../../styles/Education.scss';
 import uniqid from 'uniqid';
-// import EditButton from '../EditButton';
+import EditButton from '../EditButton';
 import AddButton from '../AddButton';
 import EditForm from '../EditForm';
 
 class EducationItem extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			degree: this.props.item.degree,
-			university: this.props.item.university,
-			date: {
-				from: this.props.item.date.from,
-				to: this.props.item.date.to,
-			},
-			active: false,
-		};
 	}
 
 	render() {
-		let { degree, university, date } = this.state;
+		const { degree, university, date, id } = this.props.info;
 		return (
 			<li>
 				<div className="text_title2">
-					{degree} {/*<EditButton active={this.state.active} />*/}
+					{degree || 'Degree'}{' '}
+					<EditButton
+						toggleEdit={() => this.props.func.toggleEdit(id)}
+					/>
 				</div>
 				<div className="university">
 					<span>
-						{date.from}-{date.to}
+						{date.from || 'from'}-{date.to || 'to'}
 					</span>{' '}
-					<span>{university}</span>
+					<span>{university || 'University'}</span>
 				</div>
 			</li>
 		);
 	}
 }
 
-// class EducationEditItem extends Component {}
+class EducationItemEdit extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			university: this.props.info.university,
+			degree: this.props.info.degree,
+			date: {
+				from: this.props.info.date.from,
+				to: this.props.info.date.to,
+			},
+			id: this.props.info.id,
+		};
+	}
+
+	render() {
+		let { university, degree, date, id } = this.state;
+		const { toggleEdit, handleSubmit } = this.props.func;
+		return (
+			<li key={id} className="education-education--edit">
+				<EditForm
+					submit={(e) => handleSubmit(id, e)}
+					cancel={(e) => toggleEdit(id, e)}
+				>
+					<input
+						className="text_title2--edit"
+						placeholder="Degree"
+						name="degree"
+						value={degree}
+						onChange={(e) => {
+							this.setState({
+								...this.state,
+								degree: e.target.value,
+							});
+						}}
+					/>
+
+					<input
+						className="university--edit"
+						placeholder="University"
+						name="university"
+						value={university}
+						onChange={(e) => {
+							this.setState({
+								...this.state,
+								university: e.target.value,
+							});
+						}}
+					/>
+
+					<div className="dateEdit">
+						<input
+							className="date_from"
+							type="number"
+							min="0"
+							max="9999"
+							placeholder="from"
+							name="from"
+							value={date.from}
+							onChange={(e) => {
+								this.setState({
+									...this.state,
+									date: {
+										from: e.target.value,
+										to: this.state.date.to,
+									},
+								});
+							}}
+						/>
+						-
+						<input
+							className="date_to"
+							type="number"
+							min="0"
+							max="9999"
+							placeholder="to"
+							name="to"
+							value={date.to}
+							onChange={(e) => {
+								this.setState({
+									...this.state,
+									date: {
+										from: this.state.date.from,
+										to: e.target.value,
+									},
+								});
+							}}
+						/>
+					</div>
+				</EditForm>
+			</li>
+		);
+	}
+}
 
 export default class Education extends Component {
-	state = {
-		items: [
-			{
-				degree: '--Degree--',
-				university: '--University--',
-				date: {
-					from: 'from',
-					to: 'to',
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			items: [
+				{
+					degree: '',
+					university: '',
+					date: {
+						from: '',
+						to: '',
+					},
+					id: uniqid(),
+					active: false,
 				},
-				id: uniqid(),
-				active: false,
-			},
-			{
-				degree: '--Degree--',
-				university: '--University--',
-				date: {
-					from: 'from',
-					to: 'to',
+			],
+		};
+	}
+
+	handleSubmit = (id, e) => {
+		e.preventDefault();
+		this.state.items.map((item) => {
+			if (item.id === id) {
+				this.state.items.splice(this.state.items.indexOf(item), 1);
+			}
+		});
+		this.setState({
+			items: [
+				...this.state.items,
+				{
+					degree: e.target.degree.value,
+					university: e.target.university.value,
+					date: {
+						from: e.target.from.value,
+						to: e.target.to.value,
+					},
+					id: uniqid(),
+					active: false,
 				},
-				id: uniqid(),
-				active: false,
-			},
-		],
+			],
+		});
 	};
 
-	renderDisplay = () => {
-		return (
-			<>
-				<div className="education-education">
-					<ul>
-						{this.state.items.map((item) => {
-							return <EducationItem item={item} key={item.id} />;
-						})}
-					</ul>
-				</div>
-				<div className="actionCont">
-					<AddButton />
-				</div>
-			</>
-		);
-	};
-
-	renderEdit = () => {
-		return (
-			<EditForm>
-				<div className="education-education--edit"></div>
-			</EditForm>
-		);
+	toggleEdit = (id, e) => {
+		e?.preventDefault();
+		this.setState({
+			items: this.state.items.map((item) => {
+				if (item.id === id) {
+					return {
+						...item,
+						active: !item.active,
+					};
+				}
+				return item;
+			}),
+		});
 	};
 
 	render() {
 		return (
 			<div className="education">
 				<div className="category2">Education</div>
-				{this.state.active ? this.renderEdit() : this.renderDisplay()}
+				<div className="education-education">
+					<ul>
+						{this.state.items.map((item) => {
+							return item.active ? (
+								<EducationItemEdit
+									key={item.id}
+									info={item}
+									func={{
+										toggleEdit: this.toggleEdit,
+										handleSubmit: this.handleSubmit,
+									}}
+								/>
+							) : (
+								<EducationItem
+									key={item.id}
+									info={item}
+									func={{ toggleEdit: this.toggleEdit }}
+								/>
+							);
+						})}
+					</ul>
+				</div>
+				<div className="actionCont">
+					<AddButton />
+				</div>
 			</div>
 		);
 	}

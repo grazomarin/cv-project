@@ -7,8 +7,8 @@ export default class Title extends Component {
 	constructor(props) {
 		super(props);
 		this.placeholder = {
-			name: '--Name--',
-			title: '--Title--',
+			name: 'Name',
+			title: 'Title',
 		};
 		this.state = {
 			pending: {
@@ -36,11 +36,11 @@ export default class Title extends Component {
 
 	toggleEdit = (e) => {
 		e?.preventDefault();
-		this.preventChange();
+		this.handleCancel();
 		this.setState({ active: !this.state.active });
 	};
 
-	preventChange = () => {
+	handleCancel = () => {
 		this.setState({
 			pending: {
 				name: this.state.defined.name,
