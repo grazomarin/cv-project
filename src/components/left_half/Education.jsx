@@ -184,6 +184,24 @@ export default class Education extends Component {
 		});
 	};
 
+	createItem = () => {
+		this.setState({
+			items: [
+				...this.state.items,
+				{
+					degree: '',
+					university: '',
+					date: {
+						from: '',
+						to: '',
+					},
+					id: uniqid(),
+					active: true,
+				},
+			],
+		});
+	};
+
 	render() {
 		return (
 			<div className="education">
@@ -211,7 +229,7 @@ export default class Education extends Component {
 					</ul>
 				</div>
 				<div className="actionCont">
-					<AddButton />
+					<AddButton func={{ createItem: this.createItem }} />
 				</div>
 			</div>
 		);

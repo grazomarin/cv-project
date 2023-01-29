@@ -2,9 +2,19 @@ import React, { Component } from 'react';
 import add from '../images/add.svg';
 
 class AddButton extends Component {
-	state = {};
+	constructor(props) {
+		super(props);
+	}
+
 	render() {
-		return <img className="add" src={add} alt="" />;
+		return (
+			<img
+				className="add"
+				onClick={this.props.func?.createItem}
+				src={add}
+				alt=""
+			/>
+		);
 	}
 }
 
