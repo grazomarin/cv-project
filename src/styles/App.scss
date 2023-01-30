@@ -2,7 +2,7 @@
 
 .cv {
 	width: $cv-width;
-	height: $cv-height;
+	min-height: $cv-height;
 	background-color: $white;
 	display: grid;
 	row-gap: 20px;
@@ -33,8 +33,15 @@
 }
 
 .text_title2 {
-	font-size: 1.5rem;
-	font-weight: 600;
+	&,
+	&--edit {
+		font-size: 1.5rem;
+		font-weight: 600;
+	}
+
+	&--edit {
+		height: 100%;
+	}
 }
 
 .category {

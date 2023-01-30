@@ -2,7 +2,7 @@
 
 .education {
 	&-education {
-		.university {
+		.university_date {
 			color: $grey;
 		}
 
@@ -19,12 +19,6 @@
 
 		input {
 			border: 1px solid black;
-		}
-
-		.text_title2--edit {
-			font-size: 1.5rem;
-			font-weight: 600;
-			height: 100%;
 		}
 
 		.university--edit {

@@ -2,14 +2,29 @@
 
 .experience {
 	&-details {
-		li::marker {
-			font-size: 1.5rem;
+		ul {
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+			padding-bottom: 15px;
+
+			li::marker {
+				font-size: 1.5rem;
+			}
+		}
+
+		&--edit {
+			input {
+				border: 1px solid black;
+			}
 		}
 
 		.job {
 			&-about {
 				margin-bottom: 10px;
-				font-size: 1.2rem;
+				&_date {
+					color: $grey;
+				}
 			}
 
 			&-description {
