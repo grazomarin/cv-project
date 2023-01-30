@@ -77,15 +77,11 @@
 .edit,
 .add {
 	display: none;
-	width: 25px;
+	width: 20px;
 	cursor: pointer;
 }
 
 .actionCont {
-	display: none;
-}
-
-.actionContMini {
 	display: none;
 }
 
@@ -102,14 +98,19 @@
 	&:hover {
 		border-radius: 5px;
 		outline: 3px solid black;
-		outline-offset: 15px;
+		outline-offset: 12px;
 
 		.actionCont {
-			position: absolute;
-			bottom: -5px;
-			right: -5px;
 			display: flex;
+			flex-direction: column;
+			background-color: $white;
 			gap: 5px;
+			position: absolute;
+			top: -4px;
+			right: -4px;
+			padding: 7px;
+			border-radius: 15px;
+			box-shadow: -2px 2px 1px rgb(0, 0, 0);
 
 			.edit,
 			.add {
