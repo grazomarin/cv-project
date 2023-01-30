@@ -23,7 +23,7 @@ class ExperienceItem extends Component {
 				<div className="job-about">
 					<span>{company || 'Company'}</span>{' '}
 					<span className="job-about_date">
-						{date.from || 'from'}-{date.to || 'to'}
+						{date.from || 'from'} - {date.to || 'to'}
 					</span>
 				</div>
 				<div className="job-description">

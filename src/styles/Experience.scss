@@ -6,17 +6,21 @@
 			display: flex;
 			flex-direction: column;
 			gap: 15px;
-			padding-bottom: 15px;
 
 			li::marker {
 				font-size: 1.5rem;
 			}
 		}
 
-		&--edit {
-			input {
-				border: 1px solid black;
-			}
+		input {
+			height: 100%;
+			border: 1px solid black;
+			outline: 1px solid black;
+		}
+
+		.dateEdit {
+			display: flex;
+			gap: 10px;
 		}
 
 		.job {

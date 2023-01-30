@@ -23,7 +23,7 @@ class EducationItem extends Component {
 				<div className="university">
 					<span>{university || 'University'}</span>{' '}
 					<span className="university_date">
-						{date.from || 'from'}-{date.to || 'to'}
+						{date.from || 'from'} - {date.to || 'to'}
 					</span>
 				</div>
 			</li>

@@ -6,10 +6,6 @@ import EditForm from '../EditForm';
 export default class Title extends Component {
 	constructor(props) {
 		super(props);
-		this.placeholder = {
-			name: 'Name',
-			title: 'Title',
-		};
 		this.state = {
 			pending: {
 				name: '',
@@ -26,21 +22,22 @@ export default class Title extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 		this.setState({
+			...this.state,
 			defined: {
 				name: this.state.pending.name,
 				title: this.state.pending.title,
 			},
+			active: false,
 		});
-		this.toggleEdit();
 	};
 
-	toggleEdit = (e) => {
-		e?.preventDefault();
-		this.handleCancel();
+	toggleEdit = () => {
 		this.setState({ active: !this.state.active });
 	};
 
-	handleCancel = () => {
+	handleCancel = (e) => {
+		e?.preventDefault();
+		this.toggleEdit();
 		this.setState({
 			pending: {
 				name: this.state.defined.name,
@@ -51,7 +48,7 @@ export default class Title extends Component {
 
 	renderEdit = () => {
 		return (
-			<EditForm cancel={this.toggleEdit} submit={this.handleSubmit}>
+			<EditForm cancel={this.handleCancel} submit={this.handleSubmit}>
 				<div className="title--edit">
 					<input
 						className="title_name--edit"
@@ -92,10 +89,10 @@ export default class Title extends Component {
 		return (
 			<>
 				<div className="title_name">
-					{this.state.defined.name || this.placeholder.name}
+					{this.state.defined.name || 'Name'}
 				</div>
 				<div className="title_title">
-					{this.state.defined.title || this.placeholder.title}
+					{this.state.defined.title || 'Title'}
 				</div>
 				<div className="actionCont">
 					<EditButton toggleEdit={this.toggleEdit} />
