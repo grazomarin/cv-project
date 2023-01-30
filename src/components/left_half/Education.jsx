@@ -21,10 +21,10 @@ class EducationItem extends Component {
 					/>
 				</div>
 				<div className="university">
-					<span>
+					<span>{university || 'University'}</span>{' '}
+					<span className="university_date">
 						{date.from || 'from'}-{date.to || 'to'}
-					</span>{' '}
-					<span>{university || 'University'}</span>
+					</span>
 				</div>
 			</li>
 		);
@@ -49,7 +49,7 @@ class EducationItemEdit extends Component {
 		let { university, degree, date, id } = this.state;
 		const { toggleEdit, handleSubmit } = this.props.func;
 		return (
-			<li key={id} className="education-education--edit">
+			<li className="education-education--edit">
 				<EditForm
 					submit={(e) => handleSubmit(id, e)}
 					cancel={(e) => toggleEdit(id, e)}
@@ -149,13 +149,7 @@ export default class Education extends Component {
 		e.preventDefault();
 		this.state.items.map((item) => {
 			if (item.id === id) {
-				this.state.items.splice(this.state.items.indexOf(item), 1);
-			}
-		});
-		this.setState({
-			items: [
-				...this.state.items,
-				{
+				this.state.items.splice(this.state.items.indexOf(item), 1, {
 					degree: e.target.degree.value,
 					university: e.target.university.value,
 					date: {
@@ -164,8 +158,11 @@ export default class Education extends Component {
 					},
 					id: uniqid(),
 					active: false,
-				},
-			],
+				});
+			}
+		});
+		this.setState({
+			items: [...this.state.items],
 		});
 	};
 
