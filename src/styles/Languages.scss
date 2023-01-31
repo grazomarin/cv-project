@@ -15,9 +15,18 @@
 			gap: 5px;
 
 			&_title {
-				width: 100%;
-				display: flex;
-				justify-content: space-between;
+				&,
+				&--edit {
+					width: 100%;
+					display: flex;
+					justify-content: space-between;
+
+					input {
+						height: 100%;
+						border: 1px solid black;
+						outline: 1px solid black;
+					}
+				}
 			}
 
 			input[type='range'] {
