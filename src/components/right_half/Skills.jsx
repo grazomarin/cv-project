@@ -4,10 +4,20 @@ import uniqid from 'uniqid';
 import EditButton from '../EditButton';
 import AddButton from '../AddButton';
 import EditForm from '../EditForm';
+import DeleteButton from '../DeleteButton';
 
 class SkillItem extends Component {
 	render() {
-		return <li>{this.props.item.skill || '<empty>'}</li>;
+		return (
+			<li>
+				{this.props.item.skill || '<empty>'}{' '}
+				<DeleteButton
+					delete={() => {
+						this.props.func.delete(this.props.item.id);
+					}}
+				/>
+			</li>
+		);
 	}
 }
 
@@ -53,7 +63,7 @@ export default class Skills extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 		let updated;
-		if (e.target.skill.length >= 2) {
+		if (e.target.skill?.length >= 2) {
 			updated = Array.from(e.target.skill).map((skill) => {
 				return {
 					skill: skill.value,
@@ -63,7 +73,7 @@ export default class Skills extends Component {
 		} else {
 			updated = [
 				{
-					skill: e.target.skill.value,
+					skill: e.target.skill?.value,
 					id: uniqid(),
 				},
 			];
@@ -72,6 +82,15 @@ export default class Skills extends Component {
 			items: updated,
 			active: false,
 		});
+	};
+
+	handleDelete = (id) => {
+		this.state.items.forEach((item) => {
+			if (item.id === id) {
+				this.state.items.splice(this.state.items.indexOf(item), 1);
+			}
+		});
+		this.setState({ items: this.state.items });
 	};
 
 	createItem = () => {
@@ -109,7 +128,15 @@ export default class Skills extends Component {
 			<>
 				<ul className="list">
 					{this.state.items.map((item) => {
-						return <SkillItem item={item} key={item.id} />;
+						return (
+							<SkillItem
+								item={item}
+								key={item.id}
+								func={{
+									delete: this.handleDelete,
+								}}
+							/>
+						);
 					})}
 				</ul>
 				<div className="actionCont">

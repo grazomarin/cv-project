@@ -3,6 +3,7 @@ import '../../styles/Experience.scss';
 import uniqid from 'uniqid';
 import EditButton from '../EditButton';
 import AddButton from '../AddButton';
+import DeleteButton from '../DeleteButton';
 import EditForm from '../EditForm';
 
 class ExperienceItem extends Component {
@@ -30,6 +31,11 @@ class ExperienceItem extends Component {
 					<div className="text_title">Description:</div>
 					<div>{description || 'Description'}</div>
 				</div>
+				<DeleteButton
+					delete={() => {
+						this.props.func.delete(id);
+					}}
+				/>
 			</li>
 		);
 	}
@@ -186,6 +192,15 @@ class Experience extends Component {
 		});
 	};
 
+	handleDelete = (id) => {
+		this.state.items.forEach((item) => {
+			if (item.id === id) {
+				this.state.items.splice(this.state.items.indexOf(item), 1);
+			}
+		});
+		this.setState({ items: this.state.items });
+	};
+
 	toggleEdit = (id, e) => {
 		e?.preventDefault();
 		this.setState({
@@ -240,7 +255,10 @@ class Experience extends Component {
 								<ExperienceItem
 									key={item.id}
 									info={item}
-									func={{ toggleEdit: this.toggleEdit }}
+									func={{
+										toggleEdit: this.toggleEdit,
+										delete: this.handleDelete,
+									}}
 								/>
 							);
 						})}

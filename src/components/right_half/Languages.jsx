@@ -4,6 +4,7 @@ import uniqid from 'uniqid';
 import EditButton from '../EditButton';
 import AddButton from '../AddButton';
 import EditForm from '../EditForm';
+import DeleteButton from '../DeleteButton';
 
 class LanguageItem extends Component {
 	state = {
@@ -15,7 +16,14 @@ class LanguageItem extends Component {
 		return (
 			<div className="language">
 				<div className="language_title">
-					<span>{this.state.language}</span>{' '}
+					<div>
+						<span>{this.state.language || '<empty>'}</span>{' '}
+						<DeleteButton
+							delete={() => {
+								this.props.func.delete(this.props.item.id);
+							}}
+						/>
+					</div>
 					<span>{this.props.func.returnLevel(this.state.level)}</span>
 				</div>
 				<input
@@ -88,7 +96,7 @@ export default class Languages extends Component {
 			? 'C1'
 			: lev === '6'
 			? 'C2'
-			: 'Error';
+			: '<none>';
 	}
 
 	toggleEdit = (e) => {
@@ -102,7 +110,7 @@ export default class Languages extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 		let updated = [];
-		if (e.target.language.length >= 2) {
+		if (e.target.language?.length >= 2) {
 			for (let i = 0; i < e.target.language.length; i++) {
 				updated.push({
 					language: e.target.language[i].value,
@@ -113,8 +121,8 @@ export default class Languages extends Component {
 		} else {
 			updated = [
 				{
-					language: e.target.language.value,
-					level: e.target.level.value,
+					language: e.target.language?.value,
+					level: e.target.level?.value,
 					id: uniqid(),
 				},
 			];
@@ -123,6 +131,15 @@ export default class Languages extends Component {
 			items: updated,
 			active: false,
 		});
+	};
+
+	handleDelete = (id) => {
+		this.state.items.forEach((item) => {
+			if (item.id === id) {
+				this.state.items.splice(this.state.items.indexOf(item), 1);
+			}
+		});
+		this.setState({ items: this.state.items });
 	};
 
 	createItem = () => {
@@ -174,6 +191,7 @@ export default class Languages extends Component {
 							key={item.id}
 							func={{
 								returnLevel: this.returnLevel,
+								delete: this.handleDelete,
 							}}
 						/>
 					);

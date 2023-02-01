@@ -4,6 +4,7 @@ import uniqid from 'uniqid';
 import EditButton from '../EditButton';
 import AddButton from '../AddButton';
 import EditForm from '../EditForm';
+import DeleteButton from '../DeleteButton';
 
 class EducationItem extends Component {
 	constructor(props) {
@@ -26,6 +27,11 @@ class EducationItem extends Component {
 						{date.from || 'from'} - {date.to || 'to'}
 					</span>
 				</div>
+				<DeleteButton
+					delete={() => {
+						this.props.func.delete(id);
+					}}
+				/>
 			</li>
 		);
 	}
@@ -166,6 +172,15 @@ export default class Education extends Component {
 		});
 	};
 
+	handleDelete = (id) => {
+		this.state.items.forEach((item) => {
+			if (item.id === id) {
+				this.state.items.splice(this.state.items.indexOf(item), 1);
+			}
+		});
+		this.setState({ items: this.state.items });
+	};
+
 	toggleEdit = (id, e) => {
 		e?.preventDefault();
 		this.setState({
@@ -219,7 +234,10 @@ export default class Education extends Component {
 								<EducationItem
 									key={item.id}
 									info={item}
-									func={{ toggleEdit: this.toggleEdit }}
+									func={{
+										toggleEdit: this.toggleEdit,
+										delete: this.handleDelete,
+									}}
 								/>
 							);
 						})}

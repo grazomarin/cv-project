@@ -75,7 +75,8 @@
 }
 
 .edit,
-.add {
+.add,
+.delete {
 	display: none;
 	width: 20px;
 	cursor: pointer;
@@ -121,11 +122,21 @@
 }
 
 li {
+	position: relative;
+
 	&:hover {
 		.edit,
-		.add {
+		.add,
+		.delete {
 			height: 23px;
+			width: 23px;
 			display: inline;
+		}
+
+		.delete {
+			position: absolute;
+			right: 0;
+			top: 25%;
 		}
 	}
 }

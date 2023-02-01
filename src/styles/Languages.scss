@@ -9,12 +9,14 @@
 		gap: 10px;
 
 		.language {
+			position: relative;
 			display: flex;
 			flex-flow: column;
 			align-items: center;
 			gap: 5px;
 
 			&_title {
+				font-size: 1.1rem;
 				&,
 				&--edit {
 					width: 100%;
@@ -32,7 +34,17 @@
 			input[type='range'] {
 				@include sliderInput($blue);
 			}
+
+			&:hover {
+				.delete {
+					position: absolute;
+					display: inline;
+					height: 1.1rem;
+					width: 1.1rem;
+					top: 2px;
+					margin-left: 8px;
+				}
+			}
 		}
 	}
-	padding-bottom: 25px;
 }
