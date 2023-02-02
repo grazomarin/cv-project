@@ -28,13 +28,13 @@
 			"eslint:recommended"
 		],
 		"rules": {
-			"indent": [
-				1,
-				2
-			],
 			"semi": [
 				1,
 				"always"
+			],
+			"indent": [
+				1,
+				"tab"
 			],
 			"linebreak-style": [
 				0,

@@ -184,6 +184,7 @@ export default class Details extends Component {
 						<a
 							href={'http://' + website || 'blank'}
 							target="_blank"
+							rel="noreferrer"
 						>
 							{website || 'website.com'}
 						</a>

@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import add from '../images/add.svg';
 
 class AddButton extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		return (
 			<img

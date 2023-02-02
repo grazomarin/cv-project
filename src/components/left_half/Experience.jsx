@@ -7,10 +7,6 @@ import DeleteButton from '../DeleteButton';
 import EditForm from '../EditForm';
 
 class ExperienceItem extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		const { jobTitle, company, date, description, id } = this.props.info;
 		return (
@@ -172,7 +168,7 @@ class Experience extends Component {
 
 	handleSubmit = (id, e) => {
 		e.preventDefault();
-		this.state.items.map((item) => {
+		this.state.items.forEach((item) => {
 			if (item.id === id) {
 				this.state.items.splice(this.state.items.indexOf(item), 1, {
 					jobTitle: e.target.title.value,

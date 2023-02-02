@@ -7,10 +7,6 @@ import EditForm from '../EditForm';
 import DeleteButton from '../DeleteButton';
 
 class EducationItem extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		const { degree, university, date, id } = this.props.info;
 		return (
@@ -153,7 +149,7 @@ export default class Education extends Component {
 
 	handleSubmit = (id, e) => {
 		e.preventDefault();
-		this.state.items.map((item) => {
+		this.state.items.forEach((item) => {
 			if (item.id === id) {
 				this.state.items.splice(this.state.items.indexOf(item), 1, {
 					degree: e.target.degree.value,
