@@ -144,5 +144,13 @@ li {
 .avatar {
 	&:hover {
 		border-radius: 50%;
+
+		.avatar_img {
+			filter: brightness(50%);
+		}
+
+		.avatar_input {
+			display: block;
+		}
 	}
 }
