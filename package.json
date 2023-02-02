@@ -73,9 +73,15 @@
 		]
 	},
 	"devDependencies": {
+		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^8.32.0",
 		"gh-pages": "^4.0.0",
 		"prettier": "^2.8.3",
 		"uniqid": "^5.4.0"
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
 	}
 }

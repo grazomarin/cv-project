@@ -11,10 +11,12 @@
 	grid-template-areas: 'left right';
 
 	.left {
+		position: relative;
 		grid-area: left;
 	}
 
 	.right {
+		position: relative;
 		background-color: $blue;
 		grid-area: right;
 	}

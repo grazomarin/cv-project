@@ -33,4 +33,18 @@
 	input[type='file'] {
 		display: none;
 	}
+
+	.error {
+		position: absolute;
+		width: 150%;
+		right: 50%;
+		transform: translate(50%, 0);
+		top: -45px;
+		height: auto;
+		padding: 6px;
+		color: $white;
+		background-color: red;
+		font-weight: 500;
+		z-index: 10;
+	}
 }
