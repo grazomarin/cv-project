@@ -6,7 +6,7 @@ body {
 
 #root {
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 	font-family: $font;
-	margin: $root-margin auto;
 }

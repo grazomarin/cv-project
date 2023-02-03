@@ -1,47 +1,35 @@
 import React, { Component } from 'react';
+import logo from './images/logo.svg';
+import ReactToPrint from 'react-to-print';
+import CV from './components/CV';
 import './styles/App.scss';
-import Title from './components/left_half/Title';
-import Experience from './components/left_half/Experience';
-import Education from './components/left_half/Education';
-import About from './components/left_half/About';
-import Avatar from './components/right_half/Avatar';
-import Details from './components/right_half/Details';
-import Skills from './components/right_half/Skills';
-import Languages from './components/right_half/Languages';
-import uniqid from 'uniqid';
 
-export default class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			avatar: {
-				src: '',
-			},
-
-			skills: [
-				{
-					skill: '',
-					id: uniqid(),
-				},
-			],
-		};
-	}
+class App extends Component {
 	render() {
 		return (
-			<div className="cv">
-				<div className="left">
-					<Title title={this.state.title} />
-					<About />
-					<Education />
-					<Experience />
+			/* throws warning because react-to-print uses findDOMNode */
+			<>
+				<div className="header">
+					<img className="logo" src={logo} alt="" />
+					<ReactToPrint
+						trigger={() => {
+							return (
+								<button
+									className="download"
+									onClick={this.printPdf}
+								>
+									Download as PDF
+								</button>
+							);
+						}}
+						content={() => this.componentRef}
+						documentTitle="myCV"
+					/>
 				</div>
-				<div className="right">
-					<Avatar />
-					<Details />
-					<Skills />
-					<Languages />
-				</div>
-			</div>
+				<CV ref={(el) => (this.componentRef = el)} />
+			</>
 		);
 	}
 }
+
+export default App;
