@@ -149,22 +149,21 @@ export default class Education extends Component {
 
 	handleSubmit = (id, e) => {
 		e.preventDefault();
-		this.state.items.forEach((item) => {
-			if (item.id === id) {
-				this.state.items.splice(this.state.items.indexOf(item), 1, {
-					degree: e.target.degree.value,
-					university: e.target.university.value,
-					date: {
-						from: e.target.from.value,
-						to: e.target.to.value,
-					},
-					id: uniqid(),
-					active: false,
-				});
-			}
-		});
 		this.setState({
-			items: [...this.state.items],
+			items: this.state.items.map((item) => {
+				if (item.id === id) {
+					return {
+						degree: e.target.degree.value,
+						university: e.target.university.value,
+						date: {
+							from: e.target.from.value,
+							to: e.target.to.value,
+						},
+						id: item.id,
+						active: false,
+					};
+				} else return item;
+			}),
 		});
 	};
 
