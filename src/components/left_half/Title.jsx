@@ -1,111 +1,71 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import EditButton from '../EditButton';
 import '../../styles/Title.scss';
 import EditForm from '../EditForm';
 
-export default class Title extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			pending: {
-				name: '',
-				title: '',
-			},
-			defined: {
-				name: '',
-				title: '',
-			},
-			active: false,
-		};
+const Title = () => {
+	const [name, setName] = useState('');
+	const [title, setTitle] = useState('');
+	const [active, setActive] = useState(false);
+	const [tempName, setTempName] = useState(name);
+	const [tempTitle, setTempTitle] = useState(title);
+
+	function handleCancel() {
+		setTempName(name);
+		setTempTitle(title);
+		toggleEdit();
 	}
 
-	handleSubmit = (e) => {
-		e.preventDefault();
-		this.setState({
-			...this.state,
-			defined: {
-				name: this.state.pending.name,
-				title: this.state.pending.title,
-			},
-			active: false,
-		});
-	};
+	function handleSubmit() {
+		setName(tempName);
+		setTitle(tempTitle);
+		toggleEdit();
+	}
 
-	toggleEdit = () => {
-		this.setState({ active: !this.state.active });
-	};
+	function toggleEdit() {
+		setActive(!active);
+	}
 
-	handleCancel = (e) => {
-		e?.preventDefault();
-		this.toggleEdit();
-		this.setState({
-			pending: {
-				name: this.state.defined.name,
-				title: this.state.defined.title,
-			},
-		});
-	};
-
-	renderEdit = () => {
+	function renderEdit() {
 		return (
-			<EditForm cancel={this.handleCancel} submit={this.handleSubmit}>
+			<EditForm cancel={handleCancel} submit={handleSubmit}>
 				<div className="title--edit">
 					<input
 						className="title_name--edit"
 						name="name"
 						type="text"
 						placeholder="Name"
-						value={this.state.pending.name}
-						onChange={(e) => {
-							this.setState({
-								pending: {
-									name: e.target.value,
-									title: this.state.pending.title,
-								},
-							});
-						}}
+						value={tempName}
+						onChange={(e) => setTempName(e.target.value)}
 					/>
 					<input
 						className="title_title--edit"
 						name="title"
 						type="text"
 						placeholder="Title"
-						value={this.state.pending.title}
-						onChange={(e) => {
-							this.setState({
-								pending: {
-									name: this.state.pending.name,
-									title: e.target.value,
-								},
-							});
-						}}
+						value={tempTitle}
+						onChange={(e) => setTempTitle(e.target.value)}
 					/>
 				</div>
 			</EditForm>
 		);
-	};
+	}
 
-	renderDisplay = () => {
+	function renderDisplay() {
 		return (
 			<>
-				<div className="title_name">
-					{this.state.defined.name || 'Name'}
-				</div>
-				<div className="title_title">
-					{this.state.defined.title || 'Title'}
-				</div>
+				<div className="title_name">{name || 'Name'}</div>
+				<div className="title_title">{title || 'Title'}</div>
 				<div className="actionCont">
-					<EditButton toggleEdit={this.toggleEdit} />
+					<EditButton toggleEdit={toggleEdit} />
 				</div>
 			</>
 		);
-	};
-
-	render() {
-		return (
-			<div className="title">
-				{this.state.active ? this.renderEdit() : this.renderDisplay()}
-			</div>
-		);
 	}
-}
+
+	return (
+		<div className="title">{active ? renderEdit() : renderDisplay()}</div>
+	);
+};
+
+export default Title;
