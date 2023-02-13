@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import '../../styles/Education.scss';
 import uniqid from 'uniqid';
 import EditButton from '../EditButton';
@@ -6,66 +6,103 @@ import AddButton from '../AddButton';
 import EditForm from '../EditForm';
 import DeleteButton from '../DeleteButton';
 
-class EducationItem extends Component {
-	render() {
-		const { degree, university, date, id } = this.props.info;
+function Education() {
+	const [tasks, setTasks] = useState([{ id: uniqid(), active: false }]);
+
+	const handleDelete = (id) => {
+		setTasks(
+			tasks.filter((task) => {
+				return task.id === id ? false : true;
+			})
+		);
+	};
+
+	const handleAdd = () =>
+		setTasks([...tasks, { id: uniqid(), active: true }]);
+
+	return (
+		<div className="education">
+			<div className="category2">Education</div>
+			<div className="education-education">
+				<ul>
+					{tasks.map((task) => {
+						return (
+							<EducationItem
+								key={task.id}
+								id={task.id}
+								initActive={task.active}
+								handleDelete={handleDelete}
+							/>
+						);
+					})}
+				</ul>
+			</div>
+			<div className="actionCont">
+				<AddButton func={{ createItem: handleAdd }} />
+			</div>
+		</div>
+	);
+}
+
+function EducationItem({ id, initActive, handleDelete }) {
+	const [university, setUniversity] = useState('');
+	const [degree, setDegree] = useState('');
+	const [from, setFrom] = useState('');
+	const [to, setTo] = useState('');
+
+	const [tempUniversity, setTempUniversity] = useState('');
+	const [tempDegree, setTempDegree] = useState('');
+	const [tempFrom, setTempFrom] = useState('');
+	const [tempTo, setTempTo] = useState('');
+
+	const [active, setActive] = useState(initActive);
+
+	const toggleEdit = () => setActive(!active);
+
+	function handleCancel() {
+		setTempUniversity(university);
+		setTempDegree(degree);
+		setTempFrom(from);
+		setTempTo(to);
+		toggleEdit();
+	}
+
+	function handleSubmit() {
+		setUniversity(tempUniversity);
+		setDegree(tempDegree);
+		setFrom(tempFrom);
+		setTo(tempTo);
+		toggleEdit();
+	}
+
+	function renderDisplay() {
 		return (
 			<li>
 				<div className="text_title2">
-					{degree || 'Degree'}{' '}
-					<EditButton
-						toggleEdit={() => this.props.func.toggleEdit(id)}
-					/>
+					{degree || 'Degree'} <EditButton toggleEdit={toggleEdit} />
 				</div>
 				<div className="university">
 					<span>{university || 'University'}</span>{' '}
 					<span className="university_date">
-						{date.from || 'from'} - {date.to || 'to'}
+						{from || 'from'} - {to || 'to'}
 					</span>
 				</div>
-				<DeleteButton
-					delete={() => {
-						this.props.func.delete(id);
-					}}
-				/>
+				<DeleteButton delete={() => handleDelete(id)} />
 			</li>
 		);
 	}
-}
 
-class EducationItemEdit extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			university: this.props.info.university,
-			degree: this.props.info.degree,
-			date: {
-				from: this.props.info.date.from,
-				to: this.props.info.date.to,
-			},
-			id: this.props.info.id,
-		};
-	}
-
-	render() {
-		let { university, degree, date, id } = this.state;
-		const { toggleEdit, handleSubmit } = this.props.func;
+	function renderEdit() {
 		return (
 			<li className="education-education--edit">
-				<EditForm
-					submit={(e) => handleSubmit(id, e)}
-					cancel={(e) => toggleEdit(id, e)}
-				>
+				<EditForm submit={handleSubmit} cancel={handleCancel}>
 					<input
 						className="text_title2--edit"
 						placeholder="Degree"
 						name="degree"
-						value={degree}
+						value={tempDegree}
 						onChange={(e) => {
-							this.setState({
-								...this.state,
-								degree: e.target.value,
-							});
+							setTempDegree(e.target.value);
 						}}
 					/>
 
@@ -73,12 +110,9 @@ class EducationItemEdit extends Component {
 						className="university--edit"
 						placeholder="University"
 						name="university"
-						value={university}
+						value={tempUniversity}
 						onChange={(e) => {
-							this.setState({
-								...this.state,
-								university: e.target.value,
-							});
+							setTempUniversity(e.target.value);
 						}}
 					/>
 
@@ -90,15 +124,9 @@ class EducationItemEdit extends Component {
 							max="9999"
 							placeholder="from"
 							name="from"
-							value={date.from}
+							value={tempFrom}
 							onChange={(e) => {
-								this.setState({
-									...this.state,
-									date: {
-										from: e.target.value,
-										to: this.state.date.to,
-									},
-								});
+								setTempFrom(e.target.value);
 							}}
 						/>
 						-
@@ -109,15 +137,9 @@ class EducationItemEdit extends Component {
 							max="9999"
 							placeholder="to"
 							name="to"
-							value={date.to}
+							value={tempTo}
 							onChange={(e) => {
-								this.setState({
-									...this.state,
-									date: {
-										from: this.state.date.from,
-										to: e.target.value,
-									},
-								});
+								setTempTo(e.target.value);
 							}}
 						/>
 					</div>
@@ -125,123 +147,8 @@ class EducationItemEdit extends Component {
 			</li>
 		);
 	}
+
+	return active ? renderEdit() : renderDisplay();
 }
 
-export default class Education extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			items: [
-				{
-					degree: '',
-					university: '',
-					date: {
-						from: '',
-						to: '',
-					},
-					id: uniqid(),
-					active: false,
-				},
-			],
-		};
-	}
-
-	handleSubmit = (id, e) => {
-		e.preventDefault();
-		this.setState({
-			items: this.state.items.map((item) => {
-				if (item.id === id) {
-					return {
-						degree: e.target.degree.value,
-						university: e.target.university.value,
-						date: {
-							from: e.target.from.value,
-							to: e.target.to.value,
-						},
-						id: item.id,
-						active: false,
-					};
-				} else return item;
-			}),
-		});
-	};
-
-	handleDelete = (id) => {
-		this.state.items.forEach((item) => {
-			if (item.id === id) {
-				this.state.items.splice(this.state.items.indexOf(item), 1);
-			}
-		});
-		this.setState({ items: this.state.items });
-	};
-
-	toggleEdit = (id, e) => {
-		e?.preventDefault();
-		this.setState({
-			items: this.state.items.map((item) => {
-				if (item.id === id) {
-					return {
-						...item,
-						active: !item.active,
-					};
-				}
-				return item;
-			}),
-		});
-	};
-
-	createItem = () => {
-		this.setState({
-			items: [
-				...this.state.items,
-				{
-					degree: '',
-					university: '',
-					date: {
-						from: '',
-						to: '',
-					},
-					id: uniqid(),
-					active: true,
-				},
-			],
-		});
-	};
-
-	render() {
-		return (
-			<div className="education">
-				<div className="category2">Education</div>
-				<div className="education-education">
-					<ul>
-						{this.state.items.map((item) => {
-							return item.active ? (
-								<EducationItemEdit
-									key={item.id}
-									info={item}
-									func={{
-										toggleEdit: this.toggleEdit,
-										handleSubmit: this.handleSubmit,
-									}}
-								/>
-							) : (
-								<EducationItem
-									key={item.id}
-									info={item}
-									func={{
-										toggleEdit: this.toggleEdit,
-										delete: this.handleDelete,
-									}}
-								/>
-							);
-						})}
-					</ul>
-				</div>
-				<div className="actionCont">
-					<AddButton func={{ createItem: this.createItem }} />
-				</div>
-			</div>
-		);
-	}
-}
+export default Education;
