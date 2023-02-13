@@ -1,34 +1,22 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import '../../styles/About.scss';
 import EditButton from '../EditButton';
 import EditForm from '../EditForm';
 
-export default class About extends Component {
-	constructor(props) {
-		super(props);
-		this.placeholder = 'About Text';
-		this.state = {
-			text: '',
-			active: false,
-		};
+const About = () => {
+	const [text, setText] = useState('');
+	const [active, setActive] = useState(false);
+
+	const toggleEdit = () => setActive(!active);
+
+	function handleSubmit(e) {
+		setText(e.target.value);
+		toggleEdit();
 	}
 
-	handleSubmit = (e) => {
-		e.preventDefault();
-		this.setState({
-			text: e.target.about.value,
-		});
-		this.toggleEdit();
-	};
-
-	toggleEdit = (e) => {
-		e?.preventDefault();
-		this.setState({ active: !this.state.active });
-	};
-
-	renderEdit = () => {
+	function renderEdit() {
 		return (
-			<EditForm cancel={this.toggleEdit} submit={this.handleSubmit}>
+			<EditForm cancel={toggleEdit} submit={handleSubmit}>
 				<div className="about_about--edit">
 					<textarea
 						name="about"
@@ -36,32 +24,32 @@ export default class About extends Component {
 						rows="5"
 						// eslint-disable-next-line max-len
 						placeholder="Write something interesting about yourself...."
-						defaultValue={this.state.text}
+						defaultValue={text}
 					></textarea>
 				</div>
 			</EditForm>
 		);
-	};
+	}
 
-	renderDisplay = () => {
+	function renderDisplay() {
 		return (
 			<>
 				<div className="about_about">
-					<p>{this.state.text || this.placeholder}</p>
+					<p>{text || 'About Text'}</p>
 				</div>
 				<div className="actionCont">
-					<EditButton toggleEdit={this.toggleEdit} />
+					<EditButton toggleEdit={toggleEdit} />
 				</div>
 			</>
 		);
-	};
-
-	render() {
-		return (
-			<div className="about">
-				<div className="category2">About</div>
-				{this.state.active ? this.renderEdit() : this.renderDisplay()}
-			</div>
-		);
 	}
-}
+
+	return (
+		<div className="about">
+			<div className="category2">About</div>
+			{active ? renderEdit() : renderDisplay()}
+		</div>
+	);
+};
+
+export default About;
