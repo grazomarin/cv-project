@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import '../../styles/Experience.scss';
 import uniqid from 'uniqid';
 import EditButton from '../EditButton';
@@ -6,21 +6,89 @@ import AddButton from '../AddButton';
 import DeleteButton from '../DeleteButton';
 import EditForm from '../EditForm';
 
-class ExperienceItem extends Component {
-	render() {
-		const { jobTitle, company, date, description, id } = this.props.info;
+const Experience = () => {
+	const [tasks, setTasks] = useState([{ id: uniqid(), active: false }]);
+
+	const handleDelete = (id) => {
+		setTasks(
+			tasks.filter((task) => {
+				return task.id === id ? false : true;
+			})
+		);
+	};
+
+	const handleAdd = () =>
+		setTasks([...tasks, { id: uniqid(), active: true }]);
+
+	return (
+		<div className="experience">
+			<div className="category2">Experience</div>
+			<div className="experience-details">
+				<ul>
+					{tasks.map((task) => {
+						return (
+							<ExperienceItem
+								key={task.id}
+								id={task.id}
+								initActive={task.active}
+								handleDelete={handleDelete}
+							/>
+						);
+					})}
+				</ul>
+			</div>
+			<div className="actionCont">
+				<AddButton func={{ createItem: handleAdd }} />
+			</div>
+		</div>
+	);
+};
+
+const ExperienceItem = ({ id, initActive, handleDelete }) => {
+	const [jobTitle, setJobTitle] = useState('');
+	const [company, setCompany] = useState('');
+	const [from, setFrom] = useState('');
+	const [to, setTo] = useState('');
+	const [description, setDescription] = useState('');
+
+	const [tempJobTitle, setTempJobTitle] = useState('');
+	const [tempCompany, setTempCompany] = useState('');
+	const [tempFrom, setTempFrom] = useState('');
+	const [tempTo, setTempTo] = useState('');
+	const [tempDescription, setTempDescription] = useState('');
+
+	const [active, setActive] = useState(initActive);
+
+	const toggleEdit = () => setActive(!active);
+
+	function handleCancel() {
+		setTempJobTitle(jobTitle);
+		setTempCompany(company);
+		setTempFrom(from);
+		setTempTo(to);
+		setTempDescription(description);
+		toggleEdit();
+	}
+
+	function handleSubmit() {
+		setJobTitle(tempJobTitle);
+		setCompany(tempCompany);
+		setFrom(tempFrom);
+		setTo(tempTo);
+		setDescription(tempDescription);
+		toggleEdit();
+	}
+
+	function renderDisplay() {
 		return (
 			<li>
 				<div className="text_title2">
-					{jobTitle || 'Title'}{' '}
-					<EditButton
-						toggleEdit={() => this.props.func.toggleEdit(id)}
-					/>
+					{jobTitle || 'Title'} <EditButton toggleEdit={toggleEdit} />
 				</div>
 				<div className="job-about">
 					<span>{company || 'Company'}</span>{' '}
 					<span className="job-about_date">
-						{date.from || 'from'} - {date.to || 'to'}
+						{from || 'from'} - {to || 'to'}
 					</span>
 				</div>
 				<div className="job-description">
@@ -29,48 +97,24 @@ class ExperienceItem extends Component {
 				</div>
 				<DeleteButton
 					delete={() => {
-						this.props.func.delete(id);
+						handleDelete(id);
 					}}
 				/>
 			</li>
 		);
 	}
-}
 
-class ExperienceItemEdit extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			jobTitle: this.props.info.jobTitle,
-			company: this.props.info.company,
-			description: this.props.info.description,
-			date: {
-				from: this.props.info.date.from,
-				to: this.props.info.date.to,
-			},
-			id: this.props.info.id,
-		};
-	}
-
-	render() {
-		let { jobTitle, company, description, date, id } = this.state;
-		const { toggleEdit, handleSubmit } = this.props.func;
+	function renderEdit() {
 		return (
 			<li className="experience-details--edit">
-				<EditForm
-					submit={(e) => handleSubmit(id, e)}
-					cancel={(e) => toggleEdit(id, e)}
-				>
+				<EditForm submit={handleSubmit} cancel={handleCancel}>
 					<input
 						className="text_title2--edit"
 						placeholder="Title"
 						name="title"
-						value={jobTitle}
+						value={tempJobTitle}
 						onChange={(e) => {
-							this.setState({
-								...this.state,
-								jobTitle: e.target.value,
-							});
+							setTempJobTitle(e.target.value);
 						}}
 					/>
 
@@ -78,12 +122,9 @@ class ExperienceItemEdit extends Component {
 						className="company--edit"
 						placeholder="Company"
 						name="company"
-						value={company}
+						value={tempCompany}
 						onChange={(e) => {
-							this.setState({
-								...this.state,
-								company: e.target.value,
-							});
+							setTempCompany(e.target.value);
 						}}
 					/>
 
@@ -91,12 +132,9 @@ class ExperienceItemEdit extends Component {
 						className="description--edit"
 						placeholder="Description"
 						name="description"
-						value={description}
+						value={tempDescription}
 						onChange={(e) => {
-							this.setState({
-								...this.state,
-								description: e.target.value,
-							});
+							setTempDescription(e.target.value);
 						}}
 					/>
 
@@ -108,15 +146,9 @@ class ExperienceItemEdit extends Component {
 							max="9999"
 							placeholder="from"
 							name="from"
-							value={date.from}
+							value={tempFrom}
 							onChange={(e) => {
-								this.setState({
-									...this.state,
-									date: {
-										from: e.target.value,
-										to: this.state.date.to,
-									},
-								});
+								setTempFrom(e.target.value);
 							}}
 						/>
 						-
@@ -127,15 +159,9 @@ class ExperienceItemEdit extends Component {
 							max="9999"
 							placeholder="to"
 							name="to"
-							value={date.to}
+							value={tempTo}
 							onChange={(e) => {
-								this.setState({
-									...this.state,
-									date: {
-										from: this.state.date.from,
-										to: e.target.value,
-									},
-								});
+								setTempTo(e.target.value);
 							}}
 						/>
 					</div>
@@ -143,128 +169,8 @@ class ExperienceItemEdit extends Component {
 			</li>
 		);
 	}
-}
 
-class Experience extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			items: [
-				{
-					jobTitle: '',
-					company: '',
-					description: '',
-					date: {
-						from: '',
-						to: '',
-					},
-					id: uniqid(),
-					active: false,
-				},
-			],
-		};
-	}
-
-	handleSubmit = (id, e) => {
-		e.preventDefault();
-		this.setState({
-			items: this.state.items.map((item) => {
-				if (item.id === id) {
-					return {
-						jobTitle: e.target.title.value,
-						company: e.target.company.value,
-						description: e.target.description.value,
-						date: {
-							from: e.target.from.value,
-							to: e.target.to.value,
-						},
-						id: item.id,
-						active: false,
-					};
-				} else return item;
-			}),
-		});
-	};
-
-	handleDelete = (id) => {
-		this.state.items.forEach((item) => {
-			if (item.id === id) {
-				this.state.items.splice(this.state.items.indexOf(item), 1);
-			}
-		});
-		this.setState({ items: this.state.items });
-	};
-
-	toggleEdit = (id, e) => {
-		e?.preventDefault();
-		this.setState({
-			items: this.state.items.map((item) => {
-				if (item.id === id) {
-					return {
-						...item,
-						active: !item.active,
-					};
-				}
-				return item;
-			}),
-		});
-	};
-
-	createItem = () => {
-		this.setState({
-			items: [
-				...this.state.items,
-				{
-					jobTitle: '',
-					company: '',
-					description: '',
-					date: {
-						from: '',
-						to: '',
-					},
-					id: uniqid(),
-					active: true,
-				},
-			],
-		});
-	};
-
-	render() {
-		return (
-			<div className="experience">
-				<div className="category2">Experience</div>
-				<div className="experience-details">
-					<ul>
-						{this.state.items.map((item) => {
-							return item.active ? (
-								<ExperienceItemEdit
-									key={item.id}
-									info={item}
-									func={{
-										toggleEdit: this.toggleEdit,
-										handleSubmit: this.handleSubmit,
-									}}
-								/>
-							) : (
-								<ExperienceItem
-									key={item.id}
-									info={item}
-									func={{
-										toggleEdit: this.toggleEdit,
-										delete: this.handleDelete,
-									}}
-								/>
-							);
-						})}
-					</ul>
-				</div>
-				<div className="actionCont">
-					<AddButton func={{ createItem: this.createItem }} />
-				</div>
-			</div>
-		);
-	}
-}
+	return active ? renderEdit() : renderDisplay();
+};
 
 export default Experience;
