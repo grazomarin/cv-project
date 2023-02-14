@@ -1,54 +1,48 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import placeholder from '../../images/placeholder.jpg';
 import '../../styles/Avatar.scss';
 
-export default class Avatar extends Component {
-	state = {
-		src: placeholder,
-		error: false,
-	};
+const Avatar = () => {
+	const [source, setSource] = useState(placeholder);
+	const [error, setError] = useState(false);
 
-	toggleError = () => {
-		this.setState({ error: !this.state.error });
-	};
+	const toggleError = () => setError(!error);
 
-	renderError = () => {
+	const renderError = () => {
 		return <div className="error">Error: Invalid format</div>;
 	};
 
-	validateFileExtension = (file) => {
+	const validateFileExtension = (file) => {
 		const allowedExtensions = /(jpg|jpeg|svg|png)/;
-		if (allowedExtensions.exec(file.type)) {
-			return true;
-		} else {
-			this.toggleError();
-			setTimeout(this.toggleError, 3000);
-		}
+		return allowedExtensions.exec(file.type) ? true : false;
 	};
 
-	handleImageChange = (e) => {
+	const handleImageChange = (e) => {
 		const newImage = e.target.files[0];
-		if (this.validateFileExtension(newImage)) {
-			this.setState({ src: URL.createObjectURL(newImage) });
+		if (validateFileExtension(newImage)) {
+			setSource(URL.createObjectURL(newImage));
+		} else {
+			toggleError();
+			setTimeout(toggleError, 3000);
 		}
 	};
 
-	render() {
-		return (
-			<div className="avatar">
-				{this.state.error ? this.renderError() : null}
-				<img src={this.state.src} alt="" className="avatar_img" />
-				<label htmlFor="img-upload" className="avatar_input">
-					Upload Image
-				</label>
-				<input
-					id="img-upload"
-					type="file"
-					accept=".jpg,.jpeg,.svg,.png"
-					name="file1"
-					onChange={this.handleImageChange}
-				/>
-			</div>
-		);
-	}
-}
+	return (
+		<div className="avatar">
+			{error ? renderError() : null}
+			<img src={source} alt="" className="avatar_img" />
+			<label htmlFor="img-upload" className="avatar_input">
+				Upload Image
+			</label>
+			<input
+				id="img-upload"
+				type="file"
+				accept=".jpg,.jpeg,.svg,.png"
+				name="file1"
+				onChange={handleImageChange}
+			/>
+		</div>
+	);
+};
+
+export default Avatar;
