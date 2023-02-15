@@ -1,17 +1,8 @@
-import React, { Component } from 'react';
-import add from '../images/add.svg';
+import React from 'react';
+import addSrc from '../images/add.svg';
 
-class AddButton extends Component {
-	render() {
-		return (
-			<img
-				className="add"
-				onClick={this.props.func?.createItem}
-				src={add}
-				alt=""
-			/>
-		);
-	}
-}
+const AddButton = ({ add }) => {
+	return <img className="add" onClick={add} src={addSrc} alt="" />;
+};
 
 export default AddButton;

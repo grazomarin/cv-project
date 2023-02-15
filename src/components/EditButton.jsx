@@ -1,15 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import editIcon from '../images/edit.svg';
 
-export default class EditButton extends Component {
-	render() {
-		return (
-			<img
-				src={editIcon}
-				alt=""
-				className="edit"
-				onClick={this.props.toggleEdit}
-			/>
-		);
-	}
-}
+const EditButton = ({ toggleEdit }) => {
+	return <img src={editIcon} alt="" className="edit" onClick={toggleEdit} />;
+};
+
+export default EditButton;
