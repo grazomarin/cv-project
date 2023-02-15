@@ -27,6 +27,20 @@ const Languages = () => {
 		);
 	};
 
+	const updateLevel = (id, value) => {
+		setLanguages((prev) =>
+			prev.map((lang) =>
+				lang.id === id
+					? {
+							...lang,
+							level: value,
+							// eslint-disable-next-line no-mixed-spaces-and-tabs
+					  }
+					: lang
+			)
+		);
+	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!e.target.language) return;
@@ -75,6 +89,7 @@ const Languages = () => {
 						language={language.language}
 						level={language.level}
 						remove={handleRemove}
+						updateLevel={updateLevel}
 					/>
 				);
 			})}
@@ -96,6 +111,7 @@ const Languages = () => {
 							language={language.language}
 							level={language.level}
 							remove={handleRemove}
+							updateLevel={updateLevel}
 						/>
 					);
 				})}
@@ -114,9 +130,8 @@ const Languages = () => {
 	);
 };
 
-const LanguageItem = ({ id, active, remove, ...props }) => {
+const LanguageItem = ({ id, active, remove, level, updateLevel, ...props }) => {
 	const [language, setLanguage] = useState(props.language);
-	const [level, setLevel] = useState(props.level);
 
 	const returnLevel = (lvl) => {
 		return lvl === '1'
@@ -165,7 +180,7 @@ const LanguageItem = ({ id, active, remove, ...props }) => {
 				min="1"
 				max="6"
 				value={level}
-				onChange={(e) => setLevel(e.target.value)}
+				onChange={(e) => updateLevel(id, e.target.value)}
 			/>
 		</div>
 	);
