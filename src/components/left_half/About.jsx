@@ -14,22 +14,20 @@ const About = () => {
 		toggleEdit();
 	}
 
-	function renderEdit() {
-		return (
-			<EditForm cancel={toggleEdit} submit={handleSubmit}>
-				<div className="about_about--edit">
-					<textarea
-						name="about"
-						id=""
-						rows="5"
-						// eslint-disable-next-line max-len
-						placeholder="Write something interesting about yourself...."
-						defaultValue={text}
-					></textarea>
-				</div>
-			</EditForm>
-		);
-	}
+	const renderEdit = () => (
+		<EditForm cancel={toggleEdit} submit={handleSubmit}>
+			<div className="about_about--edit">
+				<textarea
+					name="about"
+					id=""
+					rows="5"
+					// eslint-disable-next-line max-len
+					placeholder="Write something interesting about yourself...."
+					defaultValue={text}
+				></textarea>
+			</div>
+		</EditForm>
+	);
 
 	function renderDisplay() {
 		return (
